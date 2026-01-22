@@ -10,7 +10,7 @@ export class ProduitService {
   private produits: Produit[] = PRODUITS;
 
   getAll(): Observable<Produit[]> {
-    return of(this.produits).pipe(delay(50000));
+    return of(this.produits).pipe(delay(10000));
   }
 
   getById(id: number): Observable<Produit | undefined> {

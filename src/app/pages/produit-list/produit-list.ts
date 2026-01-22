@@ -12,6 +12,8 @@ import { ProduitItemDiv } from '../produit-item-div/produit-item-div';
 export class ProduitList implements OnInit{
   
   produits: Produit[] = [];
+  loading = false;
+  errorMessage = "";
 
 
   constructor(private produitService: ProduitService) {  }
@@ -21,10 +23,18 @@ export class ProduitList implements OnInit{
   }
 
   loadProduits(){
+    this.loading = true;
     this.produitService.getAll().subscribe({
       next:(data: Produit[]) => {
         this.produits = data;
-      } 
+      },
+      error:(err:any) => {
+        this.errorMessage = `Voici une erreur: ${err}`;
+        this.loading = false;
+      },
+      complete:() => {
+        this.loading = false;
+      }
     });
   }
 
